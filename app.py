@@ -1,7 +1,9 @@
 from flask import Flask
 from google.cloud import translate
-app = Flask(__name__)
+import os
 
+app = Flask(__name__)
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "./SpeakToPay-696d8f6e86f0.json"
 @app.route('/')
 def homepage():
     # Instantiates a client
@@ -16,7 +18,7 @@ def homepage():
     translation = translate_client.translate(
         text,
         target_language=target)
-    
+
     return u'Text: {}'.format(text) + u'Translation: {}'.format(translation['translatedText'])
 
 if __name__ == '__main__':
