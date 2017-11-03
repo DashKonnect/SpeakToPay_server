@@ -8,9 +8,12 @@ import json
 import os
 
 def handleTelegramMessage(bot, update):
-	byte_data = dialog(update.message.text)
-	string_data = byte_data.decode(encoding='utf-8')
-	update.message.reply_text(string_data)
+	message = dialog(update.message.text)
+	# obj = json.loads(message);
+	# message = obj["result"]["fulfillment"]["speech"]
+	# translation = translate_client.translate(raw_message,target_language=src_lang)
+	# message = translation['translatedText']
+	update.message.reply_text(message)
 
 def pollForTelegram():
 	updater = Updater('460893798:AAFeyxyeakEO4soBpw4hWLyiXNGkj865dkU')
@@ -31,18 +34,15 @@ def translate():
 	target = 'en'
 	raw_message = request.data.decode(encoding='utf-8')
 	message = json.loads(raw_message)
-	byte_data = dialog(message.raw_message)
-	string_data = byte_data.decode(encoding='utf-8')
+	string_data = dialog(message['raw_message'])
 	return string_data
 
 if __name__ == '__main__':
-	# p2 = Process(target=pollForTelegram)
-	# p2.start()
-
+	p2 = Process(target=pollForTelegram)
+	p2.start()
 	p1 = Process(target=app.run(debug=True, use_reloader=True))
 	p1.start()
-
 	p1.join()
-	# p2.join()
+	p2.join()
 
 
