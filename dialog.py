@@ -15,6 +15,7 @@ def dialog(raw_message):
 	req.lang = 'en'  # optional, default value equal 'en'
 	req.session_id = "1234"
 	text = translation['translatedText']
+	text = text.lower()
 	for i in range(len(text)):
 		if text[i] == '₹':
 			text[i] = 'rupees '
