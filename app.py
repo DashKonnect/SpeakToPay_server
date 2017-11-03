@@ -1,8 +1,22 @@
+from telegram.ext import Updater, MessageHandler, Filters 
+from telegram import Update
+from multiprocessing import Process
 from flask import Flask
 from flask import request
 from dialog import dialog
 import json
 import os
+
+def handleTelegramMessage(bot, update):
+	byte_data = dialog(update.message.text)
+	string_data = byte_data.decode(encoding='utf-8')
+	update.message.reply_text(string_data)
+
+def pollForTelegram():
+	updater = Updater('460893798:AAFeyxyeakEO4soBpw4hWLyiXNGkj865dkU')
+	updater.dispatcher.add_handler(MessageHandler(Filters.text, handleTelegramMessage))
+	updater.start_polling()
+	updater.idle()
 
 app = Flask(__name__)
 @app.route('/')
@@ -21,5 +35,14 @@ def translate():
 	return string_data
 
 if __name__ == '__main__':
-	app.run(debug=True, use_reloader=True)
+	pollForTelegram()
+	# p2 = Process(target=pollForTelegram)
+	# p2.start()
+
+	# p1 = Process(target=app.run(debug=True, use_reloader=True))
+	# p1.start()
+
+	# p1.join()
+	# p2.join()
+
 
