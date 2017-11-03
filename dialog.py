@@ -18,13 +18,12 @@ def dialog(raw_message):
 	text = text.lower()
 	for i in range(len(text)):
 		if text[i] == '₹':
-			text = text[:i]+"rupees "+text[i:]
+			text = text[:i]+"rupees "+text[i+1:]
 
 	req.query = text
 
 
 	response = req.getresponse()
-	print(response.read())
 	return response.read()
 
 # dialog("शाहरुख को ₹50 भेज द")
