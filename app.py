@@ -29,12 +29,11 @@ def homepage():
 @app.route('/translate', methods=['POST'])
 def translate():
 	target = 'en'
-	final = []
 	raw_message = request.data.decode(encoding='utf-8')
 	byte_data = dialog(raw_message)
 	string_data = byte_data.decode(encoding='utf-8')
 	return string_data
-	
+
 if __name__ == '__main__':
 	pollForTelegram()
 	# p2 = Process(target=pollForTelegram)
