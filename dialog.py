@@ -14,7 +14,13 @@ def dialog(raw_message):
 	req = ai.text_request()
 	req.lang = 'en'  # optional, default value equal 'en'
 	req.session_id = "1234"
-	#print(translation['translatedText'])
-	req.query = translation['translatedText']
+	text = translation['translatedText']
+	for i in range(len(text)):
+		if text[i] == '₹':
+			text[i] = 'rupees '
+
+	req.query = text
+
+
 	response = req.getresponse()
 	return response.read()
