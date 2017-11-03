@@ -35,14 +35,13 @@ def translate():
 	return string_data
 
 if __name__ == '__main__':
-	pollForTelegram()
-	# p2 = Process(target=pollForTelegram)
-	# p2.start()
+	p2 = Process(target=pollForTelegram)
+	p2.start()
 
-	# p1 = Process(target=app.run(debug=True, use_reloader=True))
-	# p1.start()
+	p1 = Process(target=app.run(debug=True, use_reloader=True))
+	p1.start()
 
-	# p1.join()
-	# p2.join()
+	p1.join()
+	p2.join()
 
 
