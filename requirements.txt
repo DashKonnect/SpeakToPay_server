@@ -1,3 +1,5 @@
 Flask
 gunicorn
 google-cloud-translate
+python-telegram-bot
+apiai
