@@ -26,9 +26,15 @@ def dialog(raw_message):
 	response = req.getresponse()
 	# return response.read()
 	string_data = response.read()
-	obj = json.loads(string_data.decode());
-	message = obj["result"]["fulfillment"]["speech"]
-	translation = translate_client.translate(message,target_language=src_lang['language'])
-	return translation['translatedText']
+	obj = json.loads(string_data);
+
+	intentName = obj["result"]["metadata"]["intentName"];
+
+	if(intentName == "bill_payment_intent"):
+
+	elif(intentName == "PaymentIntent"):
+		message = obj["result"]["fulfillment"]["speech"]
+		translation = translate_client.translate(message,target_language=src_lang['language'])
+		return translation['translatedText']
 
 # dialog("शाहरुख को ₹50 भेज द")
